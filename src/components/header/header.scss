@@ -1,0 +1,53 @@
+.header {
+    position: fixed;
+    width: 100vw;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 10%;
+    z-index: 10;
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/menutexture.png);
+
+    &__logo {
+        background-color: white;
+        height: 90px;
+        width: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &__image {
+            margin-top: 8px;
+            height: 40px;
+            width: 70px;
+        }
+    }
+
+    &__menu {
+        &__text {
+            font-family: 'arial';
+            letter-spacing: 2px;
+            font-size: 11px;
+            margin-left: 20px;
+            cursor: pointer;
+            color: grey;
+
+            &:hover {
+                color: white;
+            }
+        }
+    }
+
+    &__donate {
+        font-family: 'arial';
+        letter-spacing: 2px;
+        font-size: 11px;
+        margin-left: 20px;
+        cursor: pointer;
+        color: white;
+        border-bottom: 1px solid grey;
+        padding-bottom: 5px;
+    }
+}

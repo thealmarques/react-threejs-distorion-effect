@@ -1,0 +1,72 @@
+import React, { useEffect, useState } from 'react';
+import './landing.scss';
+import { Animal } from '../../interfaces/animals';
+import { SliderEffect } from './effect';
+import { TweenLite } from 'gsap';
+import { Effects } from '../../interfaces/effects';
+
+interface Props {
+  item: number;
+  animals: Animal[];
+}
+
+export const Landing = ({ item, animals }: Props) => {
+  const [effects, setEffects] = useState<Effects>();
+
+  useEffect(() => {
+    const parent = document.querySelector('.landing') as HTMLElement;
+    const images = document.querySelectorAll('.landing__image');
+
+    if (parent && images) {
+      const effects = SliderEffect({
+        parent,
+        images: Array.from(images)
+      });
+      setEffects(effects);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (effects) {
+      effects.material.uniforms.nextImage.value = effects.images[item];
+      TweenLite.to(effects.material.uniforms.dispFactor, 1, {
+        value: 1,
+        ease: 'Expo.easeInOut',
+        onComplete: () => {
+          effects.material.uniforms.currentImage.value = effects.images[item];
+          effects.material.uniforms.dispFactor.value = 0.0;
+        }
+      });
+    }
+
+  }, [item, effects]);
+
+  return (
+    <div className="landing">
+      { animals.map((animal, index) => {
+        return (
+          <div style={{ width: '100%', height: '100%' }} key={index} hidden={index !== item}>
+            <img src={animal.url} className="landing__image" alt="Animal"></img>
+            <div className="landing__details">
+              <div className="landing__details__label">
+                SPECIES
+          <span className="landing__details__label-bar"></span>
+              </div>
+              <span className="landing__details__text">{animal.species}</span>
+              <div className="landing__details__label">
+                AGE
+          <span className="landing__details__label-bar"></span>
+              </div>
+              <span className="landing__details__text landing__details__text-small">{animal.age}</span>
+              <div className="landing__details__label">
+                BIO
+          <span className="landing__details__label-bar"></span>
+              </div>
+              <span className="landing__details__text landing__details__text-small">{animal.bio}</span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  )
+}

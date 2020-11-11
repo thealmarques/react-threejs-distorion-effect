@@ -1,0 +1,72 @@
+.landing {
+    width: 100vh;
+    height: 100vh;
+    
+    &__image {
+        height: 100%;
+        max-width: 100%;
+        position: relative;
+        z-index: -1;
+    }
+
+    canvas {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+    }
+
+    @media (max-width: 841px) {
+        &__animal-1, &__animal-2 {
+            display: none;
+        }
+    }
+
+    &__details {
+        position: absolute;
+        top: 10vw;
+        left: 15vw;
+        font-family: 'arial';
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        z-index: 3;
+
+        @media (max-width: 841px) {
+            top: 15vw;
+        }
+
+        @media (max-width: 515px) {
+            top: 20vw;
+        }
+
+        &__label {
+            letter-spacing: 4px;
+            font-size: 12px;
+            color: gray;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            &-bar {
+                width: 30px;
+                height: 2.5px;
+                background-color: gray;
+            }
+        }
+
+        &__text {
+            font-size: 30px;
+            color: white;
+            font-weight: bold;
+            padding-top: 20px;
+            margin-bottom: 60px;
+            letter-spacing: 1px;
+
+            &-small {
+                font-size: 20px;
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+.slider {
+    position: absolute;
+    right: 200px;
+    z-index: 10;
+
+    &__item {
+        width: 16px;
+        height: 16px;
+        background-color: gray;
+        margin-bottom: 25px;
+        border-radius: 100%;
+        cursor: pointer;
+        position: relative;
+
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 100%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transition: opacity .4s ease-in-out, width .4s ease-in-out, height .4s ease-in-out;
+        }
+
+        &-active {
+            background-color: white;
+
+            &:before {
+                content: '';
+                width: 250%;
+                height: 250%;
+                opacity: 1;
+            }
+        }
+    }
+}
