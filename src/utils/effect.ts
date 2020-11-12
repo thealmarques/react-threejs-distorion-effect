@@ -1,21 +1,21 @@
 import * as THREE from "three";
 import { Texture } from "three";
+import { Effects } from "../interfaces/effects";
 
 export const SliderEffect = (opts: {
   parent: HTMLElement,
   images: Element[]
-}) => {
+}): Effects => {
 
-  let vertex = `
+  const vertex = `
       varying vec2 vUv;
       void main() {
         vUv = uv;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 0.7 );
       }
   `;
 
-  let fragment = `
-      
+  const fragment = `
       varying vec2 vUv;
 
       uniform sampler2D currentImage;
@@ -28,7 +28,7 @@ export const SliderEffect = (opts: {
           vec2 uv = vUv;
           vec4 _currentImage;
           vec4 _nextImage;
-          float intensity = 0.3;
+          float intensity = 0.6;
 
           vec4 orig1 = texture2D(currentImage, uv);
           vec4 orig2 = texture2D(nextImage, uv);
@@ -40,11 +40,10 @@ export const SliderEffect = (opts: {
           vec4 finalTexture = mix(_currentImage, _nextImage, dispFactor);
 
           gl_FragColor = finalTexture;
-
       }
   `;
 
-  let images = opts.images, image, sliderImages: Texture[] = [];;
+  let images = opts.images, image: Texture, sliderImages: Texture[] = [];;
   let canvasWidth = images[0].clientWidth;
   let canvasHeight = images[0].clientHeight;
   let parent = opts.parent;
@@ -56,7 +55,7 @@ export const SliderEffect = (opts: {
   if( renderWidth > canvasWidth ) {
     renderW = renderWidth;
   } else {
-      renderW = canvasWidth;
+    renderW = canvasWidth;
   }
 
   renderH = canvasHeight;
@@ -73,7 +72,7 @@ export const SliderEffect = (opts: {
   let loader = new THREE.TextureLoader();
    loader.crossOrigin = "anonymous";
 
-  images.forEach( (img: Element) => {
+  images.forEach((img: Element) => {
       image = loader.load( img.getAttribute( 'src' ) + '?v=' + Date.now() );
       image.magFilter = image.minFilter = THREE.LinearFilter;
       image.anisotropy = renderer.capabilities.getMaxAnisotropy();
@@ -90,7 +89,6 @@ export const SliderEffect = (opts: {
       1,
       1000
   );
-
   camera.position.z = 2;
 
   let mat = new THREE.ShaderMaterial({

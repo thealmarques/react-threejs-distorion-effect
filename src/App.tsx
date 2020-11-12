@@ -30,7 +30,7 @@ function App() {
     {
       species: 'Brown Bear',
       age: 12,
-      bio: 'Hate Elefants',
+      bio: 'Love salmon',
       url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/bear2.jpg'
     },
   ]

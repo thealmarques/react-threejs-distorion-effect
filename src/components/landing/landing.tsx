@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './landing.scss';
 import { Animal } from '../../interfaces/animals';
-import { SliderEffect } from './effect';
+import { SliderEffect } from '../../utils/effect';
 import { TweenLite } from 'gsap';
 import { Effects } from '../../interfaces/effects';
 
@@ -12,6 +12,7 @@ interface Props {
 
 export const Landing = ({ item, animals }: Props) => {
   const [effects, setEffects] = useState<Effects>();
+  const lastIndex = useRef<number>(0);
 
   useEffect(() => {
     const parent = document.querySelector('.landing') as HTMLElement;
@@ -31,7 +32,7 @@ export const Landing = ({ item, animals }: Props) => {
       effects.material.uniforms.nextImage.value = effects.images[item];
       TweenLite.to(effects.material.uniforms.dispFactor, 1, {
         value: 1,
-        ease: 'Expo.easeInOut',
+        ease: 'Expo.easeOut',
         onComplete: () => {
           effects.material.uniforms.currentImage.value = effects.images[item];
           effects.material.uniforms.dispFactor.value = 0.0;
@@ -39,6 +40,7 @@ export const Landing = ({ item, animals }: Props) => {
       });
     }
 
+    lastIndex.current = item;
   }, [item, effects]);
 
   return (
@@ -50,19 +52,19 @@ export const Landing = ({ item, animals }: Props) => {
             <div className="landing__details">
               <div className="landing__details__label">
                 SPECIES
-          <span className="landing__details__label-bar"></span>
+                <span className="landing__details__label-bar"></span>
               </div>
-              <span className="landing__details__text">{animal.species}</span>
+              <span id="title" className="landing__details__text landing__details__text-hidden">{animal.species}</span>
               <div className="landing__details__label">
                 AGE
-          <span className="landing__details__label-bar"></span>
+                <span className="landing__details__label-bar"></span>
               </div>
-              <span className="landing__details__text landing__details__text-small">{animal.age}</span>
+              <span id="age" className="landing__details__text landing__details__text-small">{animal.age}</span>
               <div className="landing__details__label">
                 BIO
-          <span className="landing__details__label-bar"></span>
+                <span className="landing__details__label-bar"></span>
               </div>
-              <span className="landing__details__text landing__details__text-small">{animal.bio}</span>
+              <span id="bio" className="landing__details__text landing__details__text-small">{animal.bio}</span>
             </div>
           </div>
         );

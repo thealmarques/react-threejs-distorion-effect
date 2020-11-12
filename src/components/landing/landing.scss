@@ -1,10 +1,10 @@
 .landing {
     width: 100vh;
     height: 100vh;
-    
+
     &__image {
         height: 100%;
-        max-width: 100%;
+        width: 0;
         position: relative;
         z-index: -1;
     }
@@ -63,10 +63,39 @@
             padding-top: 20px;
             margin-bottom: 60px;
             letter-spacing: 1px;
+            opacity: 1;
+            animation:         OPACITY_FRAME .8s; /* IE 10+, Fx 29+ */
 
             &-small {
                 font-size: 20px;
             }
         }
+    }
+}
+
+@keyframes OPACITY_FRAME {
+    0%   { 
+        transform: translate(0px, 25px);
+        -webkit-filter: blur(10px);
+    }
+    25% {
+        transform: translate(0px, 20px);
+        -webkit-filter: blur(8px);
+    }
+    50% {
+        transform: translate(0px, 15px);
+        -webkit-filter: blur(5px);
+    }
+    75% {
+        transform: translate(0px, 10px);
+        -webkit-filter: blur(3px);
+    }
+    85% {
+        transform: translate(0px, 8px);
+        -webkit-filter: blur(3px);
+    }
+    100% {
+        transform: translate(0px, 0px);
+        -webkit-filter: blur(0px);
     }
 }
