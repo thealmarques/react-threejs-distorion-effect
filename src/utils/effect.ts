@@ -64,7 +64,6 @@ export const SliderEffect = (opts: {
       antialias: false,
   });
 
-  renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setClearColor( 0x23272A, 1.0 );
   renderer.setSize( renderW, renderH );
   parent.appendChild( renderer.domElement );

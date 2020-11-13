@@ -12,7 +12,6 @@ interface Props {
 
 export const Landing = ({ item, animals }: Props) => {
   const [effects, setEffects] = useState<Effects>();
-  const lastIndex = useRef<number>(0);
 
   useEffect(() => {
     const parent = document.querySelector('.landing') as HTMLElement;
@@ -39,8 +38,6 @@ export const Landing = ({ item, animals }: Props) => {
         }
       });
     }
-
-    lastIndex.current = item;
   }, [item, effects]);
 
   return (
